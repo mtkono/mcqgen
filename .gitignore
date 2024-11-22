@@ -1,2 +1,5 @@
 env
 .env
+
+logs/*.log
+src/mcqgenerator/__pycache__/*

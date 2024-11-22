@@ -4,22 +4,20 @@ import json
 import traceback
 
 def readFile(file):
-    # ext=os.path.splitext(file)[1].lower()
-    # print(ext)
+
     if file.name.endswith(".pdf"):
-    # if ext==".pdf":
         try:
             pdf_reader=PdfReader(file)
             text=""
             for page in pdf_reader.pages:
                 text+=page.extract_text()
-            return text
+            return truncate_text(text)
             
         except Exception as e:
             raise Exception("error reading the PDF file")
         
     elif file.name.endswith(".txt"):
-        return file.read().decode("utf-8")
+        return truncate_text(file.read().decode("utf-8"))
     
     else:
         raise Exception(
@@ -51,3 +49,14 @@ def getTableData(quiz_str):
         traceback.print_exception(type(e), e, e.__traceback__)
         return False
 
+def truncate_text(text, max_words=1500):
+    # Split the text into words
+    words = text.split()
+
+    # Select only the first max_words words
+    truncated_words = words[:max_words]
+
+    # Join the truncated words back into a string
+    truncated_text = ' '.join(truncated_words)
+
+    return truncated_text
