@@ -3,6 +3,6 @@ langchain
 langchain_community
 streamlit 
 python-dotenv
-PyPDF2
+PyPDF
 
 -e .
